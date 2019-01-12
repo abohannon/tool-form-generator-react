@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import Input from './Input'
 
+// TODO: Create an autocomplete component
 const Datalist = (props) => {
   const { list, ...rest } = props
 
