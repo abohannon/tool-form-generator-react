@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -22,11 +23,24 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>FORM GENERATOR</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div class="mt-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-7">
+              <div id="formRoot"></div>
+            </div>
+            <div class="col-sm-5">
+              <label>Example Click Funnels Field</label>
+              <input name="purchase[product_id]" value="1682617" type="radio" />
+              <input name="purchase[product_id]" value="1682619" type="radio" />
+            </div>
+          </div>
+        </div>
+      </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -37,5 +51,136 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+      const formSettings = {
+        onSubmit: 'endpoint',
+        steps: [
+          {
+            name: 'step1',
+            title: 'Step 1',
+            sections: [
+              {
+                name: 'contact',
+                title: 'Contact Info',
+                fields: [
+                  {
+                    type: 'text',
+                    name: 'firstName',
+                    label: 'First Name',
+                    placeholder: 'John',
+                    required: true,
+                    component: 'input',
+                    smallText: 'Please input your first name',
+                  },
+                  {
+                    type: 'text',
+                    name: 'lastName',
+                    label: 'Last Name',
+                    placeholder: 'Doe',
+                    required: true,
+                    component: 'input'
+                  },
+                  {
+                    type: 'email',
+                    name: 'email',
+                    label: 'Email address',
+                    placeholder: 'johndoe@email.com',
+                    required: true,
+                    component: 'input'
+                  },
+                ],
+              },
+              {
+                name: 'extra',
+                title: 'Additional Info',
+                fields: [
+                  {
+                    type: 'text',
+                    name: 'hobbies',
+                    label: 'Hobbies',
+                    placeholder: 'Surfing, running, reading',
+                    required: false,
+                    component: 'input',
+                    smallText: 'Tell us a little about yourself',
+                  },
+                  {
+                    type: 'text',
+                    name: 'country',
+                    label: 'Country',
+                    placeholder: 'United States',
+                    required: true,
+                    component: 'datalist',
+                    list: ['Chrome', 'Safari', 'Internet Explorer'],
+                  },
+                ],
+              }
+            ],
+            button: {
+              value: 'Continue',
+              color: 'blue',
+            }
+          },
+          {
+            name: 'step2',
+            title: 'Step 2',
+            sections: [
+              {
+                name: 'payment',
+                title: 'Payment Info',
+                fields: [
+                  {
+                    type: 'text',
+                    name: 'addressLine1',
+                    label: 'Address Line 1',
+                    placeholder: '123 Main St',
+                    required: true,
+                    component: 'input'
+                  },
+                  {
+                    type: 'text',
+                    name: 'addressLine2',
+                    label: 'Address Line 2',
+                    placeholder: 'Apt 3',
+                    required: false,
+                    component: 'input'
+                  },
+                  {
+                    type: 'text',
+                    name: 'state',
+                    label: 'State',
+                    placeholder: 'CA',
+                    required: true,
+                    component: 'input'
+                  },
+                  {
+                    type: 'text',
+                    name: 'postalCode',
+                    label: 'Postal Code',
+                    placeholder: '92102',
+                    required: true,
+                    component: 'input'
+                  },
+                  {
+                    type: 'tel',
+                    name: 'telephone',
+                    label: 'Phone Number',
+                    placeholder: '619-123-4567',
+                    required: true,
+                    component: 'input'
+                  },
+                ],
+              }
+            ],
+            button: {
+              value: 'Complete Payment',
+              color: 'green',
+            }
+          },
+        ]
+      }
+
+      window.formSettings = formSettings
+
+    </script>
   </body>
 </html>

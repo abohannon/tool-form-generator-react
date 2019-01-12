@@ -1,10 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import './index.css';
-import App from './App';
+import AppContainer from './containers/AppContainer';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const rootEl = document.getElementById(`formRoot`)
+console.log(`ENV:`, process.env.NODE_ENV)
+
+
+const renderApp = Component => render(
+  <Component />,
+  rootEl,
+)
+
+renderApp(AppContainer)
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
