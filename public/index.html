@@ -35,8 +35,25 @@
             </div>
             <div class="col-sm-5">
               <label>Example Click Funnels Field</label>
-              <input name="purchase[product_id]" value="1682617" type="radio" />
-              <input name="purchase[product_id]" value="1682619" type="radio" />
+              <!-- <input name="purchase[product_id]" value="1682617" type="radio" />
+              <input name="purchase[product_id]" value="1682619" type="radio" /> -->
+              <div class="d-flex row">
+                <div class="col-md-4">
+                  <div>
+                    <input type="radio" id="pid-1651432" name="purchase[product_id]" value="1651432" data-product-label="45 Units of XY" data-product-amount="360.0" data-product-currency-code="USD" data-business-name="XY Find It" data-product-name="45 Units of XY">
+                    <div data-cf-product-price="true" taxamo-currency="USD">$360</div>
+                    <label for="pid-1651432" data-cf-product-name="true">45 Units of XY</label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="pull-left elOrderProductOptinProductName">
+                    <input type="radio" id="pid-1651433" name="purchase[product_id]" value="1651433" data-product-label="65 Units of XY" data-product-amount="520.0" data-product-currency-code="USD" data-business-name="XY Find It" data-product-name="65 Units of XY">
+                    <div class="pull-right elOrderProductOptinPrice" data-cf-product-price="true" taxamo-currency="USD">$520</div>
+                    <label for="pid-1651433" data-cf-product-name="true">65 Units of XY</label>
+                  </div>
+                </div>
+              </div>
+              
             </div>
           </div>
         </div>
@@ -103,15 +120,15 @@
                     component: 'input',
                     smallText: 'Tell us a little about yourself',
                   },
-                  {
-                    type: 'text',
-                    name: 'country',
-                    label: 'Country',
-                    placeholder: 'United States',
-                    required: true,
-                    component: 'datalist',
-                    list: ['Chrome', 'Safari', 'Internet Explorer'],
-                  },
+                  // {
+                  //   type: 'text',
+                  //   name: 'country',
+                  //   label: 'Country',
+                  //   placeholder: 'United States',
+                  //   required: true,
+                  //   component: 'datalist',
+                  //   list: ['Chrome', 'Safari', 'Internet Explorer'],
+                  // },
                 ],
               }
             ],

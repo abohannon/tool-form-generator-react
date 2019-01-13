@@ -8,7 +8,7 @@ const propTypes = {
 
 const Button = (props) => {
   const {
-    children, type = `submit`, color, ...rest
+    children, type = `submit`, color, className, ...rest
   } = props;
 
   let buttonClass
@@ -44,11 +44,12 @@ const Button = (props) => {
       break
   }
 
+
   return (
     <button
       type={type}
       {...rest}
-      className={`btn btn-${buttonClass}` || `btn btn-primary`}
+      className={className || (buttonClass && `btn btn-${buttonClass}`) || `btn btn-primary`}
       style={buttonStyle}
     >
       {children}

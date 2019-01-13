@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import FormGenerator from '../components/FormGenerator'
 import Button from '../components/Button'
 
+// Utilities
+import externalEventListener from '../util/externalEventListener'
+
 class FormContainer extends Component {
     state = {
       form: {
@@ -11,6 +14,8 @@ class FormContainer extends Component {
 
     componentDidMount() {
       this.saveFormSettingsinState();
+
+      externalEventListener()
     }
 
     saveFormSettingsinState = () => {
@@ -31,18 +36,51 @@ class FormContainer extends Component {
       });
     }
 
+    handleExternalInput = (name, value) => {
+      this.setState({ [name]: value })
+    }
+
     handleInput = (event) => {
       const { target } = event
       const { name, value } = target
 
-      this.setState({
-        [name]: value
-      }, () => console.log(this.state))
+      this.setState({ [name]: value })
     }
 
     handleSubmit = (event) => {
       event.preventDefault()
-      console.log(`submit`)
+
+      const {
+        form,
+        form: { formSettings, currentStep },
+        ...values
+      } = this.state
+
+      const lastStep = formSettings.steps.length - 1
+
+      if (currentStep !== lastStep) {
+        this.nextStep()
+      } else {
+        console.log(`submit:`, values)
+      }
+    }
+
+    nextStep = () => {
+      this.setState(prevState => ({
+        form: {
+          currentStep: prevState.form.currentStep + 1,
+          formSettings: prevState.form.formSettings
+        }
+      }))
+    }
+
+    prevStep = () => {
+      this.setState(prevState => ({
+        form: {
+          currentStep: prevState.form.currentStep - 1,
+          formSettings: prevState.form.formSettings
+        }
+      }))
     }
 
     render() {
@@ -64,9 +102,14 @@ class FormContainer extends Component {
               handleInput={this.handleInput}
               values={values}
             />
-            <Button color={currentButton.color}>
-              {currentButton.value}
-            </Button>
+            <div className="d-flex justify-content-between">
+              { currentStep > 0
+                && <Button className="btn" type="button" onClick={this.prevStep}>Back</Button>
+                }
+              <Button color={currentButton.color}>
+                {currentButton.value}
+              </Button>
+            </div>
           </form>
         </div>
       );
