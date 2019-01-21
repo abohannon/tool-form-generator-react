@@ -9,9 +9,8 @@ console.log(`ENV:`, process.env.NODE_ENV)
 
 
 const renderApp = Component => render(
-  <Component ref={
-      (formComponent) => { window.formComponent = formComponent }
-    }
+  <Component
+    ref={(formComponent) => { window.formComponent = formComponent }}
   />,
   rootEl,
 )
