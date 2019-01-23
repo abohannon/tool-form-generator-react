@@ -69,134 +69,143 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script>
-      const formSettings = {
-        onSubmit: 'endpoint',
-        steps: [
-          {
-            name: 'step1',
-            title: 'Step 1',
-            sections: [
-              {
-                name: 'contact',
-                title: 'Contact Info',
-                fields: [
-                  {
-                    type: 'text',
-                    name: 'firstName',
-                    label: 'First Name',
-                    placeholder: 'John',
-                    required: true,
-                    component: 'input',
-                    smallText: 'Please input your first name',
-                  },
-                  {
-                    type: 'text',
-                    name: 'lastName',
-                    label: 'Last Name',
-                    placeholder: 'Doe',
-                    required: true,
-                    component: 'input'
-                  },
-                  {
-                    type: 'email',
-                    name: 'email',
-                    label: 'Email address',
-                    placeholder: 'johndoe@email.com',
-                    required: true,
-                    component: 'input'
-                  },
-                ],
-              },
-              {
-                name: 'extra',
-                title: 'Additional Info',
-                fields: [
-                  {
-                    type: 'text',
-                    name: 'hobbies',
-                    label: 'Hobbies',
-                    placeholder: 'Surfing, running, reading',
-                    required: false,
-                    component: 'input',
-                    smallText: 'Tell us a little about yourself',
-                  },
-                  // {
-                  //   type: 'text',
-                  //   name: 'country',
-                  //   label: 'Country',
-                  //   placeholder: 'United States',
-                  //   required: true,
-                  //   component: 'datalist',
-                  //   list: ['Chrome', 'Safari', 'Internet Explorer'],
-                  // },
-                ],
-              }
-            ],
-            button: {
-              value: 'Continue',
-              color: 'blue',
-            }
-          },
-          {
-            name: 'step2',
-            title: 'Step 2',
-            sections: [
-              {
-                name: 'payment',
-                title: 'Payment Info',
-                fields: [
-                  {
-                    type: 'text',
-                    name: 'addressLine1',
-                    label: 'Address Line 1',
-                    placeholder: '123 Main St',
-                    required: true,
-                    component: 'input'
-                  },
-                  {
-                    type: 'text',
-                    name: 'addressLine2',
-                    label: 'Address Line 2',
-                    placeholder: 'Apt 3',
-                    required: false,
-                    component: 'input'
-                  },
-                  {
-                    type: 'text',
-                    name: 'state',
-                    label: 'State',
-                    placeholder: 'CA',
-                    required: true,
-                    component: 'input'
-                  },
-                  {
-                    type: 'text',
-                    name: 'postalCode',
-                    label: 'Postal Code',
-                    placeholder: '92102',
-                    required: true,
-                    component: 'input'
-                  },
-                  {
-                    type: 'tel',
-                    name: 'telephone',
-                    label: 'Phone Number',
-                    placeholder: '619-123-4567',
-                    required: true,
-                    component: 'input'
-                  },
-                ],
-              }
-            ],
-            button: {
-              value: 'Complete Payment',
-              color: 'green',
-            }
-          },
-        ]
-      }
+      // const formSettings = {
+      //   onSubmit: 'endpoint',
+      //   steps: [
+      //     {
+      //       name: 'step1',
+      //       title: 'Step 1',
+      //       sections: [
+      //         {
+      //           name: 'contact',
+      //           title: 'Contact Info',
+      //           fields: [
+      //             {
+      //               type: 'text',
+      //               name: 'firstName',
+      //               label: 'First Name',
+      //               placeholder: 'John',
+      //               required: true,
+      //               component: 'input',
+      //               smallText: 'Please input your first name',
+      //             },
+      //             {
+      //               type: 'text',
+      //               name: 'lastName',
+      //               label: 'Last Name',
+      //               placeholder: 'Doe',
+      //               required: true,
+      //               component: 'input'
+      //             },
+      //             {
+      //               type: 'email',
+      //               name: 'email',
+      //               label: 'Email address',
+      //               placeholder: 'johndoe@email.com',
+      //               required: true,
+      //               component: 'input'
+      //             },
+      //           ],
+      //         },
+      //         {
+      //           name: 'extra',
+      //           title: 'Additional Info',
+      //           fields: [
+      //             {
+      //               type: 'text',
+      //               name: 'hobbies',
+      //               label: 'Hobbies',
+      //               placeholder: 'Surfing, running, reading',
+      //               required: false,
+      //               component: 'input',
+      //               smallText: 'Tell us a little about yourself',
+      //             },
+      //             // {
+      //             //   type: 'text',
+      //             //   name: 'country',
+      //             //   label: 'Country',
+      //             //   placeholder: 'United States',
+      //             //   required: true,
+      //             //   component: 'datalist',
+      //             //   list: ['Chrome', 'Safari', 'Internet Explorer'],
+      //             // },
+      //           ],
+      //         }
+      //       ],
+      //       button: {
+      //         value: 'Continue',
+      //         color: 'blue',
+      //       }
+      //     },
+      //     {
+      //       name: 'step2',
+      //       title: 'Step 2',
+      //       sections: [
+      //         {
+      //           name: 'payment',
+      //           title: 'Payment Info',
+      //           fields: [
+      //             {
+      //               type: 'text',
+      //               name: 'addressLine1',
+      //               label: 'Address Line 1',
+      //               placeholder: '123 Main St',
+      //               required: true,
+      //               component: 'input'
+      //             },
+      //             {
+      //               type: 'text',
+      //               name: 'addressLine2',
+      //               label: 'Address Line 2',
+      //               placeholder: 'Apt 3',
+      //               required: false,
+      //               component: 'input'
+      //             },
+      //             {
+      //               type: 'text',
+      //               name: 'state',
+      //               label: 'State',
+      //               placeholder: 'CA',
+      //               required: true,
+      //               component: 'input'
+      //             },
+      //             {
+      //               type: 'text',
+      //               name: 'postalCode',
+      //               label: 'Postal Code',
+      //               placeholder: '92102',
+      //               required: true,
+      //               component: 'input'
+      //             },
+      //             {
+      //               type: 'tel',
+      //               name: 'telephone',
+      //               label: 'Phone Number',
+      //               placeholder: '619-123-4567',
+      //               required: true,
+      //               component: 'input'
+      //             },
+      //           ],
+      //         }
+      //       ],
+      //       button: {
+      //         value: 'Complete Payment',
+      //         color: 'green',
+      //       }
+      //     },
+      //   ]
+      // }
+      //   const userFormSettings = {
+      //     stepOne: {
+      //       fieldSets: {
+      //         contactInformation: {
+      //           title: 'TEST'
+      //         }
+      //       }
+      //     }
+      //   }
 
-      window.formSettings = formSettings
+      // window.userFormSettings = userFormSettings
 
     </script>
   </body>

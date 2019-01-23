@@ -1,39 +1,44 @@
 import React, { Component } from 'react';
+import { merge, isEmpty, cloneDeep } from 'lodash'
 import FormGenerator from '../components/FormGenerator'
 import Button from '../components/Button'
-
+import defaultFormSettings from '../config/defaultFormSettings'
 // Utilities
 import externalEventListener from '../util/externalEventListener'
+import { formatFormSettings } from '../util/utils'
 
 class FormContainer extends Component {
     state = {
-      form: {
-        currentStep: 0,
-      }
+      currentStep: 0,
+      formSettings: {},
     }
 
     componentDidMount() {
-      this.saveFormSettingsinState();
-
+      // attach event listeners to external fields we need
       externalEventListener()
+
+      const newObj = cloneDeep(defaultFormSettings)
+      console.log(defaultFormSettings === newObj)
+      console.log(defaultFormSettings)
+      console.log(newObj)
+
+      // this.updateFormState()
     }
 
-    saveFormSettingsinState = () => {
-      let formSettings
+    updateFormState = () => {
+      const { userFormSettings } = window
 
-      if (window.formSettings) {
-        formSettings = window.formSettings
-      } else {
-        // fetch JSON from CMS or config file
+      let formSettings = defaultFormSettings
+
+      if (userFormSettings) {
+        formSettings = merge(defaultFormSettings, userFormSettings)
       }
 
-      const { form } = this.state
+      // formatFormSettings(formSettings)
 
-      const newState = { ...form, formSettings }
-
-      this.setState({
-        form: newState
-      });
+      // this.setState({
+      //   formSettings,
+      // })
     }
 
     handleExternalInput = (name, value) => {
@@ -48,48 +53,54 @@ class FormContainer extends Component {
     }
 
     handleSubmit = (event) => {
-      event.preventDefault()
-
-      const {
-        form,
-        form: { formSettings, currentStep },
-        ...values
-      } = this.state
-
-      const lastStep = formSettings.steps.length - 1
-
-      if (currentStep !== lastStep) {
-        this.nextStep()
-      } else {
-        console.log(`submit:`, values)
-      }
+      console.log(`submit`, event.target)
     }
 
     nextStep = () => {
       this.setState(prevState => ({
-        form: {
-          currentStep: prevState.form.currentStep + 1,
-          formSettings: prevState.form.formSettings
-        }
+        currentStep: prevState.currentStep + 1,
       }))
     }
 
     prevStep = () => {
       this.setState(prevState => ({
-        form: {
-          currentStep: prevState.form.currentStep - 1,
-          formSettings: prevState.form.formSettings
-        }
+        currentStep: prevState.currentStep - 1,
       }))
     }
 
+    renderBackButton = () => (
+      <Button
+        className="btn"
+        type="button"
+        onClick={this.prevStep}
+      >
+        Back
+      </Button>
+    )
+
+    renderPrimaryButton = () => {
+      const { formSettings, currentStep } = this.state
+      const { button } = formSettings.steps[currentStep]
+
+      if (button) {
+        return (
+          <button
+            className="btn btn-primary"
+            type={button.type}
+            onClick={button.onClick}
+          >
+            {button.label}
+          </button>
+        )
+      }
+
+      return null
+    }
+
     render() {
-      const { form: { formSettings, currentStep }, ...values } = this.state
+      const { currentStep, formSettings, ...values } = this.state
 
-      if (!formSettings) return `Loading...`
-
-      const { steps } = formSettings
-      const currentButton = steps[currentStep].button
+      if (isEmpty(formSettings)) return `Loading...`
 
       return (
         <div>
@@ -103,12 +114,8 @@ class FormContainer extends Component {
               values={values}
             />
             <div className="d-flex justify-content-between">
-              { currentStep > 0
-                && <Button className="btn" type="button" onClick={this.prevStep}>Back</Button>
-                }
-              <Button color={currentButton.color}>
-                {currentButton.value}
-              </Button>
+              { currentStep > 0 && this.renderBackButton() }
+              {this.renderPrimaryButton()}
             </div>
           </form>
         </div>

@@ -1,4 +1,5 @@
 import React from 'react'
+import map from 'lodash'
 
 // Components
 import Field from './Field'
@@ -20,23 +21,38 @@ const FormGenerator = (props) => {
   } = props
 
   const { steps } = formSettings
+  // console.log(steps)
 
-  return (
-    steps[currentStep].sections.map(section => (
-      <div key={section.name}>
-        <h3>{section.title}</h3>
-        { section.fields.map(field => (
-          <Field
-            {...field}
-            onChange={handleInput}
-            value={values[field.name] || ``}
-            key={field.name}
-            component={FORM_COMPONENTS[field.component]}
-          />
-        ))}
-      </div>
-    ))
-  )
+  return null
+  // return (
+  //   map(steps[currentStep].fieldSets, (fieldSet) => (
+  //     <div key={section.name}>
+  //       <h3>{section.title}</h3>
+  //       { section.fields.map(field => (
+  //         <Field
+  //           {...field}
+  //           onChange={handleInput}
+  //           value={values[field.name] || ``}
+  //           key={field.name}
+  //           component={FORM_COMPONENTS[field.component]}
+  //         />
+  //       ))}
+  //   ) )
+  //   steps[currentStep].sections.map(section => (
+  //     <div key={section.name}>
+  //       <h3>{section.title}</h3>
+  //       { section.fields.map(field => (
+  //         <Field
+  //           {...field}
+  //           onChange={handleInput}
+  //           value={values[field.name] || ``}
+  //           key={field.name}
+  //           component={FORM_COMPONENTS[field.component]}
+  //         />
+  //       ))}
+  //     </div>
+  //   ))
+  // )
 }
 
 export default FormGenerator
