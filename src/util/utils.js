@@ -1,4 +1,4 @@
-import { values } from 'lodash'
+import { values, cloneDeep } from 'lodash'
 
 const formatFieldSets = (steps) => {
   steps.forEach((step) => {
@@ -14,9 +14,12 @@ const formatFields = (fieldSets) => {
   })
 }
 
-/* This method mutates the formSettings object by adding arrays to the fieldSets and fields properties so the data structure is easier to iterate through for our Form Generator. */
+/* This method created a new formSettings object by adding arrays to the fieldSets and fields properties so the data structure is easier to iterate through for our Form Generator. */
 export const formatFormSettings = (formSettings) => {
-  const { steps } = formSettings
+  // clone formSettings so we don't mutate the original object
+  const newFormSettings = cloneDeep(formSettings)
+
+  const { steps } = newFormSettings
 
   formatFieldSets(steps)
 
@@ -24,4 +27,6 @@ export const formatFormSettings = (formSettings) => {
     const { fieldSets } = step
     formatFields(fieldSets)
   })
+
+  return newFormSettings
 }

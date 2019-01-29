@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { merge, isEmpty, cloneDeep } from 'lodash'
+import { merge, isEmpty } from 'lodash'
 import FormGenerator from '../components/FormGenerator'
 import Button from '../components/Button'
-import defaultFormSettings from '../config/defaultFormSettings'
+import defaultFormSettings from '../config/formSettings'
 // Utilities
 import externalEventListener from '../util/externalEventListener'
 import { formatFormSettings } from '../util/utils'
@@ -17,28 +17,24 @@ class FormContainer extends Component {
       // attach event listeners to external fields we need
       externalEventListener()
 
-      const newObj = cloneDeep(defaultFormSettings)
-      console.log(defaultFormSettings === newObj)
-      console.log(defaultFormSettings)
-      console.log(newObj)
-
-      // this.updateFormState()
-    }
-
-    updateFormState = () => {
-      const { userFormSettings } = window
-
+      // if user passes in settings from outside the component, merge those with the default form settings
       let formSettings = defaultFormSettings
 
-      if (userFormSettings) {
+      if (window && window.userFormSettings) {
+        const { userFormSettings } = window
         formSettings = merge(defaultFormSettings, userFormSettings)
       }
 
-      // formatFormSettings(formSettings)
+      // format the form settings object for the FormGenerator
+      const newFormSettings = formatFormSettings(formSettings)
 
-      // this.setState({
-      //   formSettings,
-      // })
+      this.saveFormSettingsState(newFormSettings)
+    }
+
+    saveFormSettingsState = (formSettings) => {
+      this.setState({
+        formSettings,
+      })
     }
 
     handleExternalInput = (name, value) => {
@@ -79,28 +75,29 @@ class FormContainer extends Component {
     )
 
     renderPrimaryButton = () => {
-      const { formSettings, currentStep } = this.state
-      const { button } = formSettings.steps[currentStep]
+      const { currentStep, formSettings } = this.state
 
-      if (button) {
-        return (
-          <button
-            className="btn btn-primary"
-            type={button.type}
-            onClick={button.onClick}
-          >
-            {button.label}
-          </button>
-        )
+      if (!isEmpty(formSettings)) {
+        const { button } = formSettings.steps[currentStep]
+
+        if (button) {
+          return (
+            <button
+              className="btn btn-primary"
+              type={button.type}
+              onClick={button.onClick}
+            >
+              {button.label}
+            </button>
+          )
+        }
+
+        return null
       }
-
-      return null
     }
 
     render() {
       const { currentStep, formSettings, ...values } = this.state
-
-      if (isEmpty(formSettings)) return `Loading...`
 
       return (
         <div>
@@ -115,7 +112,7 @@ class FormContainer extends Component {
             />
             <div className="d-flex justify-content-between">
               { currentStep > 0 && this.renderBackButton() }
-              {this.renderPrimaryButton()}
+              { this.renderPrimaryButton() }
             </div>
           </form>
         </div>

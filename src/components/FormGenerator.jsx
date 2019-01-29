@@ -1,5 +1,4 @@
-import React from 'react'
-import map from 'lodash'
+import React, { Fragment } from 'react'
 
 // Components
 import Field from './Field'
@@ -9,7 +8,8 @@ import Select from './Select'
 import Datalist from './Datalist'
 
 const FORM_COMPONENTS = {
-  input: Input,
+  string: Input,
+  number: Input,
   radio: Radio,
   select: Select,
   datalist: Datalist,
@@ -21,38 +21,22 @@ const FormGenerator = (props) => {
   } = props
 
   const { steps } = formSettings
-  // console.log(steps)
 
-  return null
-  // return (
-  //   map(steps[currentStep].fieldSets, (fieldSet) => (
-  //     <div key={section.name}>
-  //       <h3>{section.title}</h3>
-  //       { section.fields.map(field => (
-  //         <Field
-  //           {...field}
-  //           onChange={handleInput}
-  //           value={values[field.name] || ``}
-  //           key={field.name}
-  //           component={FORM_COMPONENTS[field.component]}
-  //         />
-  //       ))}
-  //   ) )
-  //   steps[currentStep].sections.map(section => (
-  //     <div key={section.name}>
-  //       <h3>{section.title}</h3>
-  //       { section.fields.map(field => (
-  //         <Field
-  //           {...field}
-  //           onChange={handleInput}
-  //           value={values[field.name] || ``}
-  //           key={field.name}
-  //           component={FORM_COMPONENTS[field.component]}
-  //         />
-  //       ))}
-  //     </div>
-  //   ))
-  // )
+  if (!steps) return null
+
+  const { fieldSets } = formSettings.steps[currentStep]
+
+  return fieldSets.map((fieldSet, index) => {
+    const { title, description, fields } = fieldSet
+
+    return (
+      <Fragment>
+        { title && <h1>{title}</h1> }
+        { description && <p>{description}</p> }
+        { fields.map((field, index) => <p>{ field.title }</p>)}
+      </Fragment>
+    )
+  })
 }
 
 export default FormGenerator
