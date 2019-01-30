@@ -47,14 +47,6 @@ export default {
               label: `Phone Number`,
               placeholder: `(123)-456-7890`,
             },
-            fundingSource: {
-              type: `select`,
-              name: `fundingSource`,
-              label: `Funding Source`,
-              options: [
-                `Credit/Debit Card (Visa or Mastercard)`, `Echeck`,
-              ],
-            },
           },
         },
       },

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { merge, isEmpty } from 'lodash'
-import { Form } from 'reactstrap'
 import FormGenerator from '../components/FormGenerator'
-import Button from '../components/Button'
+import ButtonControl from '../components/ButtonControl'
+import BackButton from '../components/BackButton'
+import { Button } from '../components/common/Button'
 import defaultFormSettings from '../config/formSettings'
 // Utilities
 import externalEventListener from '../util/externalEventListener'
@@ -72,16 +73,6 @@ class FormContainer extends Component {
       }))
     }
 
-    renderBackButton = () => (
-      <Button
-        className="btn"
-        type="button"
-        onClick={this.prevStep}
-      >
-        Back
-      </Button>
-    )
-
     renderPrimaryButton = () => {
       const { currentStep, formSettings } = this.state
 
@@ -90,12 +81,12 @@ class FormContainer extends Component {
 
         if (button) {
           return (
-            <button
-              className="btn btn-primary"
-              type="submit"
+            <Button
+              color="primary"
+              onClick={this.handleSubmit}
             >
               {button.label}
-            </button>
+            </Button>
           )
         }
 
@@ -105,23 +96,17 @@ class FormContainer extends Component {
 
     render() {
       const { currentStep, formSettings, ...values } = this.state
+      const { steps } = formSettings
 
       return (
         <div>
-          <Form
-            onSubmit={this.handleSubmit}
-          >
-            <FormGenerator
-              formSettings={formSettings}
-              currentStep={currentStep}
-              handleInput={this.handleInput}
-              values={values}
-            />
-            <div className="d-flex justify-content-between">
-              { currentStep > 0 && this.renderBackButton() }
-              { this.renderPrimaryButton() }
-            </div>
-          </Form>
+          <FormGenerator
+            formSettings={formSettings}
+            currentStep={currentStep}
+            handleInput={this.handleInput}
+            values={values}
+          />
+          <ButtonControl />
         </div>
       );
     }
