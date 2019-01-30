@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { merge } from 'lodash'
-import FormGenerator from '../components/FormGenerator'
-import ButtonControl from '../components/ButtonControl'
+import { Form } from 'reactstrap'
 import defaultFormSettings from '../config/formSettings'
+import ButtonControl from '../components/ButtonControl'
+import Field from '../components/Field'
+
 // Utilities
 import externalEventListener from '../util/externalEventListener'
 import { formatFormSettings } from '../util/utils'
@@ -59,10 +61,6 @@ class FormContainer extends Component {
       console.log(this.state)
     }
 
-    handleCheckout = () => {
-      console.log(`checkout`)
-    }
-
     nextStep = () => {
       this.setState(prevState => ({
         currentStep: prevState.currentStep + 1,
@@ -79,22 +77,43 @@ class FormContainer extends Component {
       const { currentStep, formSettings, ...values } = this.state
       const { steps } = formSettings
 
+      if (!steps) return null
+
+      const { fieldSets } = steps[currentStep]
+
       return (
-        <div>
-          <FormGenerator
-            formSettings={formSettings}
-            currentStep={currentStep}
-            handleInput={this.handleInput}
-            values={values}
-          />
-          <ButtonControl
-            currentStep={currentStep}
-            steps={steps}
-            handlePrevStep={this.prevStep}
-            handleNextStep={this.nextStep}
-            handleCheckout={this.handleCheckout}
-          />
-        </div>
+      <div>
+        <Form onSubmit={this.handleSubmit}>
+        { fieldSets.map((fieldSet, index) => {
+          const { title, description, fields } = fieldSet
+
+          return (
+            <Fragment key={title}>
+              { title && <h1>{title}</h1> }
+              { description && <p>{description}</p> }
+              { fields.map((field) => {
+                const { name } = field
+                return (
+                  <Field
+                    key={name}
+                    onChange={this.handleInput}
+                    value={values[name]}
+                    {...field}
+                  />
+                )
+              })}
+            </Fragment>
+          )
+        }) }
+        <ButtonControl
+          currentStep={currentStep}
+          steps={steps}
+          handlePrevStep={this.prevStep}
+          handleNextStep={this.nextStep}
+          handleCheckout={this.handleCheckout}
+        />
+        </Form>
+      </div>
       );
     }
 }

@@ -1,21 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormGroup } from 'reactstrap'
-
-// Components
-import Input from './Input'
-import Radio from './Radio'
-import Select from './Select'
-import Datalist from './Datalist'
-
-const FORM_COMPONENTS = {
-  text: Input,
-  number: Input,
-  tel: Input,
-  radio: Radio,
-  select: Select,
-  datalist: Datalist,
-}
+import { FormGroup, Label, Input } from 'reactstrap'
 
 const defaultProps = {
   rules: [],
@@ -32,8 +17,6 @@ const Field = (props) => {
     name,
     options,
   } = props
-
-  const SpecificField = FORM_COMPONENTS[type] || null
 
   const specificFieldProps = {
     type,
@@ -52,8 +35,8 @@ const Field = (props) => {
 
   return (
     <FormGroup>
-      { label && <label htmlFor={name}>{label}</label> }
-      <SpecificField {...specificFieldProps} />
+      { label && <Label for={name}>{label}</Label> }
+      <Input {...specificFieldProps} />
       { smallText && <small className="form-text text-muted">{smallText}</small> }
     </FormGroup>
   )
