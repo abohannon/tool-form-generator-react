@@ -15,24 +15,27 @@ export default {
           description: null,
           fields: {
             firstName: {
-              type: `string`,
-              title: `First Name`,
+              type: `text`,
+              name: `firstName`,
+              label: `First Name`,
               placeholder: `Jane`,
               rules: [
                 `required`,
               ],
             },
             lastName: {
-              type: `string`,
-              title: `Last Name`,
+              type: `text`,
+              name: `lastName`,
+              label: `Last Name`,
               placeholder: `Doe`,
               rules: [
                 `required`,
               ],
             },
             email: {
-              type: `string`,
-              title: `Email Address`,
+              type: `text`,
+              name: `emailAddress`,
+              label: `Email Address`,
               placeholder: `janedoe@email.com`,
               rules: [
                 `required`,
@@ -40,7 +43,8 @@ export default {
             },
             phoneNumber: {
               type: `tel`,
-              title: `Phone Number`,
+              name: `phoneNumber`,
+              label: `Phone Number`,
               placeholder: `(123)-456-7890`,
             },
           },
@@ -61,7 +65,8 @@ export default {
           fields: {
             fundingSource: {
               type: `dropdown`,
-              title: `Funding Source`,
+              name: `fundingSource`,
+              label: `Funding Source`,
               options: [
                 `Credit/Debit Card (Visa or Mastercard)`,
               ],
@@ -73,37 +78,42 @@ export default {
           description: null,
           fields: {
             addressLineOne: {
-              type: `string`,
-              title: `Address Line 1`,
+              type: `text`,
+              name: `billingAddressLine1`,
+              label: `Address Line 1`,
               placeholder: `123 Main St.`,
               rules: [
                 `required`,
               ],
             },
             addressLineTwo: {
-              type: `string`,
-              title: `Address Line 2`,
+              type: `text`,
+              name: `billingAddressLine2`,
+              label: `Address Line 2`,
               placeholder: `Apt 2 (optional)`,
             },
             state: {
-              type: `string`,
-              title: `State`,
+              type: `text`,
+              name: `billingState`,
+              label: `State`,
               placeholder: `CA`,
               rules: [
                 `required`,
               ],
             },
             postalCode: {
-              type: `string`,
-              title: `Postal Code`,
+              type: `text`,
+              name: `billingPostalCode`,
+              label: `Postal Code`,
               placeholder: `66210`,
               rules: [
                 `required`,
               ],
             },
             country: {
-              type: `string`,
-              title: `Country`,
+              type: `text`,
+              name: `billingCountry`,
+              label: `Country`,
               placeholder: `United States`,
               rules: [
                 `required`,
@@ -111,7 +121,8 @@ export default {
             },
             tshirtSize: {
               type: `dropdown`,
-              title: `T-Shirt Size (For your investor kit)`,
+              name: `shirtSize`,
+              label: `T-Shirt Size (For your investor kit)`,
               options: [
                 `Small`,
                 `Medium`,
@@ -130,37 +141,42 @@ export default {
           description: null,
           fields: {
             addressLineOne: {
-              type: `string`,
-              title: `Address Line 1`,
+              type: `text`,
+              name: `shippingAddressLine1`,
+              label: `Address Line 1`,
               placeholder: `123 Main St.`,
               rules: [
                 `required`,
               ],
             },
             addressLineTwo: {
-              type: `string`,
-              title: `Address Line 2`,
+              type: `text`,
+              name: `shippingAddressLine2`,
+              label: `Address Line 2`,
               placeholder: `Apt 2 (optional)`,
             },
             state: {
-              type: `string`,
-              title: `State`,
+              type: `text`,
+              name: `shippingState`,
+              label: `State`,
               placeholder: `CA`,
               rules: [
                 `required`,
               ],
             },
             postalCode: {
-              type: `string`,
-              title: `Postal Code`,
+              type: `text`,
+              name: `shippingPostalCode`,
+              label: `Postal Code`,
               placeholder: `66210`,
               rules: [
                 `required`,
               ],
             },
             country: {
-              type: `string`,
-              title: `Country`,
+              type: `text`,
+              name: `shippingCountry`,
+              label: `Country`,
               placeholder: `United States`,
               rules: [
                 `required`,
@@ -174,7 +190,8 @@ export default {
           fields: {
             creditCardNumber: {
               type: `number`,
-              title: `Card Number`,
+              name: `cardNumber`,
+              label: `Card Number`,
               placeholder: 1114444444444,
               rules: [
                 `required`,
@@ -182,7 +199,8 @@ export default {
             },
             cvc: {
               type: `number`,
-              title: `CVC Code`,
+              name: `cvcCode`,
+              label: `CVC Code`,
               placeholder: 123,
               rules: [
                 `required`,
@@ -190,14 +208,16 @@ export default {
             },
             expirationMonth: {
               type: `number`,
-              title: `Expiry Month`,
+              name: `expiryMonth`,
+              label: `Expiry Month`,
               rules: [
                 `required`,
               ],
             },
             expirationYear: {
               type: `number`,
-              title: `Expiry Year`,
+              name: `expiryYear`,
+              label: `Expiry Year`,
               rules: [
                 `required`,
               ],

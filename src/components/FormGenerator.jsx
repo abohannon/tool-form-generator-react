@@ -2,18 +2,6 @@ import React, { Fragment } from 'react'
 
 // Components
 import Field from './Field'
-import Input from './Input'
-import Radio from './Radio'
-import Select from './Select'
-import Datalist from './Datalist'
-
-const FORM_COMPONENTS = {
-  string: Input,
-  number: Input,
-  radio: Radio,
-  select: Select,
-  datalist: Datalist,
-}
 
 const FormGenerator = (props) => {
   const {
@@ -30,10 +18,15 @@ const FormGenerator = (props) => {
     const { title, description, fields } = fieldSet
 
     return (
-      <Fragment>
+      <Fragment key={title}>
         { title && <h1>{title}</h1> }
         { description && <p>{description}</p> }
-        { fields.map((field, index) => <p>{ field.title }</p>)}
+        { fields.map((field, index) => {
+          const { name } = field
+          return (
+            <Field {...field} onChange={handleInput} value={values[name]} />
+          )
+        })}
       </Fragment>
     )
   })

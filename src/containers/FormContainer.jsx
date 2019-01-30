@@ -49,7 +49,14 @@ class FormContainer extends Component {
     }
 
     handleSubmit = (event) => {
-      console.log(`submit`, event.target)
+      event.preventDefault()
+      const { currentStep, formSettings: { steps } } = this.state
+
+      if (currentStep < steps.length - 1) {
+        this.nextStep()
+      }
+
+      console.log(this.state)
     }
 
     nextStep = () => {
@@ -84,8 +91,7 @@ class FormContainer extends Component {
           return (
             <button
               className="btn btn-primary"
-              type={button.type}
-              onClick={button.onClick}
+              type="submit"
             >
               {button.label}
             </button>

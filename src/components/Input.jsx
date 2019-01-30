@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Input = (props) => {
-  const { name, ariaDescribedBy } = props
+  const { ariaDescribedBy } = props
   return (
     <input
       className="form-control"
