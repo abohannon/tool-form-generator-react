@@ -1,8 +1,14 @@
 import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
 import { Form } from 'reactstrap'
-
-// Components
 import Field from './Field'
+
+const propTypes = {
+  formSettings: PropTypes.object,
+  currentStep: PropTypes.number,
+  handleInput: PropTypes.func,
+  values: PropTypes.object,
+}
 
 const FormGenerator = (props) => {
   const {
@@ -19,15 +25,20 @@ const FormGenerator = (props) => {
     <Form>
       { fieldSets.map((fieldSet, index) => {
         const { title, description, fields } = fieldSet
-    
+
         return (
           <Fragment key={title}>
             { title && <h1>{title}</h1> }
             { description && <p>{description}</p> }
-            { fields.map((field, index) => {
+            { fields.map((field) => {
               const { name } = field
               return (
-                <Field {...field} onChange={handleInput} value={values[name]} />
+                <Field
+                  key={name}
+                  onChange={handleInput}
+                  value={values[name]}
+                  {...field}
+                />
               )
             })}
           </Fragment>
@@ -35,5 +46,7 @@ const FormGenerator = (props) => {
       }) }
     </Form>)
 }
+
+FormGenerator.propTypes = propTypes
 
 export default FormGenerator

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormGroup } from 'reactstrap'
 
 // Components
 import Input from './Input'
@@ -50,11 +51,11 @@ const Field = (props) => {
   }
 
   return (
-    <div className="form-group">
+    <FormGroup>
       { label && <label htmlFor={name}>{label}</label> }
       <SpecificField {...specificFieldProps} />
       { smallText && <small className="form-text text-muted">{smallText}</small> }
-    </div>
+    </FormGroup>
   )
 }
 

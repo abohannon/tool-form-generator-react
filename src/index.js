@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import FormContainer from './containers/FormContainer';
 import * as serviceWorker from './serviceWorker';
 

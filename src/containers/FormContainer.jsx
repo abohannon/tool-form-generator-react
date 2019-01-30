@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { merge, isEmpty } from 'lodash'
+import { merge } from 'lodash'
 import FormGenerator from '../components/FormGenerator'
 import ButtonControl from '../components/ButtonControl'
-import BackButton from '../components/BackButton'
-import { Button } from '../components/common/Button'
 import defaultFormSettings from '../config/formSettings'
 // Utilities
 import externalEventListener from '../util/externalEventListener'
@@ -61,6 +59,10 @@ class FormContainer extends Component {
       console.log(this.state)
     }
 
+    handleCheckout = () => {
+      console.log(`checkout`)
+    }
+
     nextStep = () => {
       this.setState(prevState => ({
         currentStep: prevState.currentStep + 1,
@@ -71,27 +73,6 @@ class FormContainer extends Component {
       this.setState(prevState => ({
         currentStep: prevState.currentStep - 1,
       }))
-    }
-
-    renderPrimaryButton = () => {
-      const { currentStep, formSettings } = this.state
-
-      if (!isEmpty(formSettings)) {
-        const { button } = formSettings.steps[currentStep]
-
-        if (button) {
-          return (
-            <Button
-              color="primary"
-              onClick={this.handleSubmit}
-            >
-              {button.label}
-            </Button>
-          )
-        }
-
-        return null
-      }
     }
 
     render() {
@@ -106,7 +87,13 @@ class FormContainer extends Component {
             handleInput={this.handleInput}
             values={values}
           />
-          <ButtonControl />
+          <ButtonControl
+            currentStep={currentStep}
+            steps={steps}
+            handlePrevStep={this.prevStep}
+            handleNextStep={this.nextStep}
+            handleCheckout={this.handleCheckout}
+          />
         </div>
       );
     }

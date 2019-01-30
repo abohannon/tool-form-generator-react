@@ -7,13 +7,9 @@ const defaultProps = {
 
 }
 
-const BackButton = ({ currentStep, ...rest }) => {
-  if (currentStep < 1) return null
-
-  return (
-    <Button {...rest} />
-  )
-}
+const BackButton = ({ currentStep, ...rest }) => (
+  <Button {...rest} />
+)
 
 BackButton.defaultProps = defaultProps
 
