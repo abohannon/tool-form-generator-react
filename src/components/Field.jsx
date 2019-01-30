@@ -29,6 +29,7 @@ const Field = (props) => {
     onChange,
     value,
     name,
+    options,
   } = props
 
   const SpecificField = FORM_COMPONENTS[type] || null
@@ -39,6 +40,7 @@ const Field = (props) => {
     rules,
     onChange,
     value: value || ``,
+    options: options || [],
   }
 
   if (rules.length) {

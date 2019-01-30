@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { merge, isEmpty } from 'lodash'
+import { Form } from 'reactstrap'
 import FormGenerator from '../components/FormGenerator'
 import Button from '../components/Button'
 import defaultFormSettings from '../config/formSettings'
@@ -107,7 +108,7 @@ class FormContainer extends Component {
 
       return (
         <div>
-          <form
+          <Form
             onSubmit={this.handleSubmit}
           >
             <FormGenerator
@@ -120,7 +121,7 @@ class FormContainer extends Component {
               { currentStep > 0 && this.renderBackButton() }
               { this.renderPrimaryButton() }
             </div>
-          </form>
+          </Form>
         </div>
       );
     }
