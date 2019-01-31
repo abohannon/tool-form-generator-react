@@ -15,6 +15,7 @@ export default {
       fieldSets: {
         contactInformation: {
           title: `Contact Info Set`,
+          name: `contactInfo`,
           description: null,
           fields: {
             firstName: {
@@ -66,6 +67,7 @@ export default {
     },
     {
       title: `Billing Information`,
+      name: `billingInfo`,
       description: `Give us your billing info!`,
       button: {
         label: `Complete Order`,
@@ -75,6 +77,7 @@ export default {
       fieldSets: {
         fundingSource: {
           title: `Funding Source Set`,
+          name: `fundingSource`,
           fields: {
             fundingSource: {
               type: `select`,
@@ -88,6 +91,7 @@ export default {
         },
         shippingAddress: {
           title: `Shipping Address`,
+          name: `shippingAddress`,
           description: null,
           fields: {
             addressLineOne: {
@@ -134,8 +138,19 @@ export default {
             },
           },
         },
+        billingSameAsShipping: {
+          name: `billingSame`,
+          fields: {
+            billingSame: {
+              type: 'checkbox',
+              name: 'billingSame',
+              label: 'Billing address same as shipping address'
+            },
+          }
+        },
         billingAddress: {
           title: `Billing Address`,
+          name: `billingAddress`,
           description: null,
           fields: {
             addressLineOne: {
@@ -199,6 +214,7 @@ export default {
         },
         creditCardInfo: {
           title: `Credit Card Information`,
+          name: `creditCardInfo`,
           description: `Please enter valid credit card information.`,
           fields: {
             creditCardNumber: {

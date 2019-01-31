@@ -17,7 +17,7 @@ class Field extends Component {
   }
 
   componentDidMount() {
-    const { onChange, type, name, values, options } = this.props
+    const { type, name, options } = this.props
 
     if (type === 'select') {
       this.setInitialStateForSelectInput(name, options[0])
@@ -34,24 +34,6 @@ class Field extends Component {
       }
     })
   }
-
-  setInvalid = (e) => {
-    e.preventDefault()
-    this.setState({ invalid: true })
-  }
-
-  setValid = () => {
-    this.setState({ invalid: false })
-  }
-
-  // validateInput = () => {
-  //   const { validation, value} = this.props
-
-  //   if (validation) {
-  //     const isValid = validation.regex.test(value)
-  //     console.log(isValid)
-  //   }
-  // }
 
   render() {
     const { invalid } = this.state
@@ -87,19 +69,24 @@ class Field extends Component {
       ))
     }
 
-    if (type === 'select') {
-      specificFieldProps.options = options
-    }
-
     if (rules.length) {
       specificFieldProps.rules = rules
     }
 
+    if (type === 'select') {
+      specificFieldProps.options = options
+    }
+
+    if (type === 'checkbox') {
+      delete specificFieldProps.value
+    }
+    
+    const check = type === 'checkbox'
 
     return (
-      <FormGroup>
-        { label && <Label for={name}>{label}</Label> }
-        <Input {...specificFieldProps} />
+      <FormGroup check={check}>
+        { label && <Label for={name} check={check}>{!check && label}</Label> }
+        <Input {...specificFieldProps} /> { check && label }
         { smallText && <small className="form-text text-muted">{smallText}</small> }
         { (invalid && validation) && <FormFeedback>{validation.message}</FormFeedback>}
       </FormGroup>

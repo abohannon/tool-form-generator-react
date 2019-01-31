@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { merge } from 'lodash'
-import { Form } from 'reactstrap'
+import { Form, FormGroup } from 'reactstrap'
 import defaultFormSettings from '../config/formSettings'
 import ButtonControl from '../components/ButtonControl'
 import Field from '../components/Field'
@@ -46,14 +46,14 @@ class FormContainer extends Component {
 
     handleInput = (event) => {
       const { target } = event
-      const { name, value } = target
-
-      this.setState({ [name]: value })
+      const { name, value, checked } = target
+  
+      this.setState({ [name]: value || checked })
     }
 
     handleSubmit = (event) => {
       event.preventDefault()
-      const { currentStep, isValidated, formSettings: { steps } } = this.state
+      const { currentStep, formSettings: { steps } } = this.state
 
       const notFinalStep = currentStep < steps.length - 1
 
@@ -88,10 +88,10 @@ class FormContainer extends Component {
       <div>
         <Form onSubmit={this.handleSubmit}>
         { fieldSets.map((fieldSet, index) => {
-          const { title, description, fields } = fieldSet
+          const { title, name, description, fields } = fieldSet
 
           return (
-            <Fragment key={title}>
+            <FormGroup title={name} key={name}>
               { title && <h1>{title}</h1> }
               { description && <p>{description}</p> }
               { fields.map((field) => {
@@ -106,7 +106,7 @@ class FormContainer extends Component {
                   />
                 )
               })}
-            </Fragment>
+            </FormGroup>
           )
         }) }
         <ButtonControl

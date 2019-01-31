@@ -2,13 +2,12 @@ import React from 'react'
 import { Input as RSInput } from 'reactstrap'
 
 const Input = (props) => {
-  const { options, value, name, ...rest } = props
+  const { options, value, ...rest } = props
 
   if (options) {
     return (
       <RSInput
         {...rest}
-        name={name}
       >
       { options.map(option => (
         <option key={option} value={option}>
@@ -19,9 +18,8 @@ const Input = (props) => {
     )
   }
 
-
   return (
-    <RSInput name={name} value={value} {...rest} />
+    <RSInput value={value} {...rest} />
   )
 }
 

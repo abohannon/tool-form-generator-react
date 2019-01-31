@@ -16,8 +16,6 @@ const ButtonControl = (props) => {
     currentStep,
     steps,
     handlePrevStep,
-    handleNextStep,
-    handleCheckout,
   } = props
 
   const firstStep = currentStep === 0
