@@ -13,6 +13,7 @@ class FormContainer extends Component {
     state = {
       currentStep: 0,
       formSettings: {},
+      isValidated: false,
     }
 
     componentDidMount() {
@@ -52,13 +53,15 @@ class FormContainer extends Component {
 
     handleSubmit = (event) => {
       event.preventDefault()
-      const { currentStep, formSettings: { steps } } = this.state
+      const { currentStep, isValidated, formSettings: { steps } } = this.state
 
-      if (currentStep < steps.length - 1) {
+      const notFinalStep = currentStep < steps.length - 1
+
+      if (notFinalStep) {
         this.nextStep()
+      } else {
+        console.log('SUBMIT', this.state)
       }
-
-      console.log(this.state)
     }
 
     nextStep = () => {
@@ -74,7 +77,7 @@ class FormContainer extends Component {
     }
 
     render() {
-      const { currentStep, formSettings, ...values } = this.state
+      const { currentStep, formSettings, isValidated, ...values } = this.state
       const { steps } = formSettings
 
       if (!steps) return null
@@ -98,6 +101,7 @@ class FormContainer extends Component {
                     key={name}
                     onChange={this.handleInput}
                     value={values[name]}
+                    values={values}
                     {...field}
                   />
                 )

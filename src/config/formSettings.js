@@ -1,3 +1,6 @@
+import { emailRegex } from './validation'
+
+
 export default {
   title: `Equity Form`,
   description: `A form for selling that equity`,
@@ -22,6 +25,9 @@ export default {
               rules: [
                 `required`,
               ],
+              validation: {
+                message: 'First name is required'
+              }
             },
             lastName: {
               type: `text`,
@@ -31,15 +37,22 @@ export default {
               rules: [
                 `required`,
               ],
+              validation: {
+                message: 'Last name is required'
+              }
             },
             email: {
-              type: `text`,
+              type: `email`,
               name: `emailAddress`,
               label: `Email Address`,
               placeholder: `janedoe@email.com`,
               rules: [
                 `required`,
               ],
+              validation: {
+                regex: emailRegex,
+                message: 'A valid email address is required'
+              }
             },
             phoneNumber: {
               type: `tel`,
@@ -69,6 +82,54 @@ export default {
               label: `Funding Source`,
               options: [
                 `Credit/Debit Card (Visa or Mastercard)`, `Amex`,
+              ],
+            },
+          },
+        },
+        shippingAddress: {
+          title: `Shipping Address`,
+          description: null,
+          fields: {
+            addressLineOne: {
+              type: `text`,
+              name: `shippingAddressLine1`,
+              label: `Address Line 1`,
+              placeholder: `123 Main St.`,
+              rules: [
+                `required`,
+              ],
+            },
+            addressLineTwo: {
+              type: `text`,
+              name: `shippingAddressLine2`,
+              label: `Address Line 2`,
+              placeholder: `Apt 2 (optional)`,
+            },
+            state: {
+              type: `text`,
+              name: `shippingState`,
+              label: `State`,
+              placeholder: `CA`,
+              rules: [
+                `required`,
+              ],
+            },
+            postalCode: {
+              type: `text`,
+              name: `shippingPostalCode`,
+              label: `Postal Code`,
+              placeholder: `66210`,
+              rules: [
+                `required`,
+              ],
+            },
+            country: {
+              type: `text`,
+              name: `shippingCountry`,
+              label: `Country`,
+              placeholder: `United States`,
+              rules: [
+                `required`,
               ],
             },
           },
@@ -130,54 +191,6 @@ export default {
                 `X-Large`,
                 `XX-Large`,
               ],
-              rules: [
-                `required`,
-              ],
-            },
-          },
-        },
-        shippingAddress: {
-          title: `Shipping Address`,
-          description: null,
-          fields: {
-            addressLineOne: {
-              type: `text`,
-              name: `shippingAddressLine1`,
-              label: `Address Line 1`,
-              placeholder: `123 Main St.`,
-              rules: [
-                `required`,
-              ],
-            },
-            addressLineTwo: {
-              type: `text`,
-              name: `shippingAddressLine2`,
-              label: `Address Line 2`,
-              placeholder: `Apt 2 (optional)`,
-            },
-            state: {
-              type: `text`,
-              name: `shippingState`,
-              label: `State`,
-              placeholder: `CA`,
-              rules: [
-                `required`,
-              ],
-            },
-            postalCode: {
-              type: `text`,
-              name: `shippingPostalCode`,
-              label: `Postal Code`,
-              placeholder: `66210`,
-              rules: [
-                `required`,
-              ],
-            },
-            country: {
-              type: `text`,
-              name: `shippingCountry`,
-              label: `Country`,
-              placeholder: `United States`,
               rules: [
                 `required`,
               ],

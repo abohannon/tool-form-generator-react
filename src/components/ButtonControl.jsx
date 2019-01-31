@@ -24,9 +24,9 @@ const ButtonControl = (props) => {
   const checkoutStep = steps && currentStep === (steps.length - 1)
   const middleStep = !firstStep && !checkoutStep
 
-  const BackButton = () => <Button label="Back" onClick={handlePrevStep} />
-  const ContinueButton = () => <Button label="Continue" onClick={handleNextStep} color="primary" />
-  const CheckoutButton = () => <Button label="Checkout" onClick={handleCheckout} color="success" />
+  const BackButton = () => <Button label="Back" type="button" onClick={handlePrevStep} />
+  const ContinueButton = () => <Button label="Continue" color="primary" />
+  const CheckoutButton = () => <Button label="Checkout" color="success" />
 
   const renderCheckoutButtons = () => (
     <Fragment>
