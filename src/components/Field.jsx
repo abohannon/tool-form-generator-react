@@ -50,6 +50,8 @@ class Field extends Component {
       options,
       validation,
       placeholder,
+      target,
+      toggleCollapse,
     } = this.props
 
     const specificFieldProps = {
@@ -79,6 +81,12 @@ class Field extends Component {
 
     if (type === 'checkbox') {
       delete specificFieldProps.value
+
+      specificFieldProps.onChange = (event) => {
+        onChange(event)
+        toggleCollapse(target)
+      }
+
     }
     
     const check = type === 'checkbox'

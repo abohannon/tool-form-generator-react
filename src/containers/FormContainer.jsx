@@ -4,6 +4,8 @@ import { Form, FormGroup } from 'reactstrap'
 import defaultFormSettings from '../config/formSettings'
 import ButtonControl from '../components/ButtonControl'
 import Field from '../components/Field'
+import FieldSet from '../components/FieldSet'
+import WithTransition from '../components/WithTransition'
 
 // Utilities
 import externalEventListener from '../util/externalEventListener'
@@ -14,6 +16,7 @@ class FormContainer extends Component {
       currentStep: 0,
       formSettings: {},
       isValidated: false,
+      collapsed: [],
     }
 
     componentDidMount() {
@@ -40,6 +43,7 @@ class FormContainer extends Component {
       })
     }
 
+    // handles state changes for any external inputs outside the React component
     handleExternalInput = (name, value) => {
       this.setState({ [name]: value })
     }
@@ -76,6 +80,10 @@ class FormContainer extends Component {
       }))
     }
 
+    handleTransition = (target, callback) => {
+      callback(target)
+    }
+
     render() {
       const { currentStep, formSettings, isValidated, ...values } = this.state
       const { steps } = formSettings
@@ -88,25 +96,23 @@ class FormContainer extends Component {
       <div>
         <Form onSubmit={this.handleSubmit}>
         { fieldSets.map((fieldSet, index) => {
-          const { title, name, description, fields } = fieldSet
+          const { transition, name } = fieldSet
 
           return (
-            <FormGroup title={name} key={name}>
-              { title && <h1>{title}</h1> }
-              { description && <p>{description}</p> }
-              { fields.map((field) => {
-                const { name } = field
-                return (
-                  <Field
-                    key={name}
-                    onChange={this.handleInput}
-                    value={values[name]}
-                    values={values}
-                    {...field}
-                  />
-                )
-              })}
-            </FormGroup>
+            <WithTransition
+              key={name}
+              id={name}
+              transition={transition}
+              handleTransition={this.handleTransition}
+              render={(transitionProps) => (
+                <FieldSet
+                  values={values}
+                  onChange={this.handleInput}
+                  { ...fieldSet }
+                  { ...transitionProps }
+                />
+              )} 
+            />
           )
         }) }
         <ButtonControl

@@ -144,7 +144,9 @@ export default {
             billingSame: {
               type: 'checkbox',
               name: 'billingSame',
-              label: 'Billing address same as shipping address'
+              label: 'Billing address same as shipping address',
+              target: 'billingAddress',
+              checked: true,
             },
           }
         },
@@ -152,6 +154,7 @@ export default {
           title: `Billing Address`,
           name: `billingAddress`,
           description: null,
+          transition: 'collapse',
           fields: {
             addressLineOne: {
               type: `text`,
