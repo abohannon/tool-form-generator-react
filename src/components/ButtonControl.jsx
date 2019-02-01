@@ -11,18 +11,17 @@ const propTypes = {
 }
 
 const ButtonControl = (props) => {
-  console.log(props)
   const {
     currentStep,
     steps,
-    handlePrevStep,
+    gotoPrevStep,
   } = props
 
   const firstStep = currentStep === 0
   const checkoutStep = steps && currentStep === (steps.length - 1)
   const middleStep = !firstStep && !checkoutStep
 
-  const BackButton = () => <Button label="Back" type="button" onClick={handlePrevStep} />
+  const BackButton = () => <Button label="Back" type="button" onClick={gotoPrevStep} />
   const ContinueButton = () => <Button label="Continue" color="primary" />
   const CheckoutButton = () => <Button label="Checkout" color="success" />
 

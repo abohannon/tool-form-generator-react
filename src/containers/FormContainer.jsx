@@ -1,46 +1,22 @@
 import React, { Component } from 'react';
-import { merge } from 'lodash'
+import { connect } from 'react-redux'
 import { Form, FormGroup } from 'reactstrap'
-import defaultFormSettings from '../config/formSettings'
 import ButtonControl from '../components/ButtonControl'
-import Field from '../components/Field'
 import FieldSet from '../components/FieldSet'
 import WithTransition from '../components/WithTransition'
+import { nextStep, prevStep, formatSettings } from '../actions/formActions'
 
 // Utilities
 import externalEventListener from '../util/externalEventListener'
-import { formatFormSettings } from '../util/utils'
 
 class FormContainer extends Component {
-    state = {
-      currentStep: 0,
-      formSettings: {},
-      isValidated: false,
-      collapsed: [],
-    }
+    state = {}
 
     componentDidMount() {
+      const { dispatch } = this.props
       // attach event listeners to external fields we need
       externalEventListener()
-
-      // if user passes in settings from outside the component, merge those with the default form settings
-      let formSettings = defaultFormSettings
-
-      if (window && window.userFormSettings) {
-        const { userFormSettings } = window
-        formSettings = merge(defaultFormSettings, userFormSettings)
-      }
-
-      // format the form settings object for the FormGenerator
-      const newFormSettings = formatFormSettings(formSettings)
-
-      this.saveFormSettingsState(newFormSettings)
-    }
-
-    saveFormSettingsState = (formSettings) => {
-      this.setState({
-        formSettings,
-      })
+      dispatch(formatSettings())
     }
 
     // handles state changes for any external inputs outside the React component
@@ -57,36 +33,37 @@ class FormContainer extends Component {
 
     handleSubmit = (event) => {
       event.preventDefault()
-      const { currentStep, formSettings: { steps } } = this.state
+      const { currentStep, formSettings: { steps } } = this.props
 
       const notFinalStep = currentStep < steps.length - 1
 
       if (notFinalStep) {
-        this.nextStep()
+        this.gotoNextStep()
       } else {
         console.log('SUBMIT', this.state)
       }
-    }
-
-    nextStep = () => {
-      this.setState(prevState => ({
-        currentStep: prevState.currentStep + 1,
-      }))
-    }
-
-    prevStep = () => {
-      this.setState(prevState => ({
-        currentStep: prevState.currentStep - 1,
-      }))
     }
 
     handleTransition = (target, callback) => {
       callback(target)
     }
 
+    gotoPrevStep = () => {
+      const { dispatch } = this.props
+
+      dispatch(prevStep())
+    }
+
+    gotoNextStep = () => {
+      const { dispatch } = this.props
+
+      dispatch(nextStep())
+    }
+
     render() {
-      const { currentStep, formSettings, isValidated, ...values } = this.state
-      const { steps } = formSettings
+      const { ...values } = this.state
+
+      const { dispatch, currentStep, formSettings: { steps } } = this.props
 
       if (!steps) return null
 
@@ -116,10 +93,10 @@ class FormContainer extends Component {
           )
         }) }
         <ButtonControl
+          dispatch={dispatch}
           currentStep={currentStep}
           steps={steps}
-          handlePrevStep={this.prevStep}
-          handleNextStep={this.nextStep}
+          gotoPrevStep={this.gotoPrevStep}
           handleCheckout={this.handleCheckout}
         />
         </Form>
@@ -128,4 +105,14 @@ class FormContainer extends Component {
     }
 }
 
-export default FormContainer
+const mapStateToProps = ({
+  form: {
+    currentStep,
+    formSettings,
+  }
+}) => ({
+  currentStep,
+  formSettings,
+})
+
+export default connect(mapStateToProps)(FormContainer)
